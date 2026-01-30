@@ -53,7 +53,9 @@ export function Wheel({
     }
     const idx = slices.findIndex((s) => s.id === selectedSlice.id);
     if (idx < 0) return;
-    const target = EXTRA_ROTATIONS * 360 + (360 - idx * degPer);
+    // Random offset within slice interior so we never land on a boundary (0.15–0.85 of slice)
+    const offsetDeg = degPer * (0.15 + Math.random() * 0.7);
+    const target = EXTRA_ROTATIONS * 360 + (360 - idx * degPer - offsetDeg);
     setIsAnimating(true);
     setRotation(target);
     const t = setTimeout(() => {
@@ -135,7 +137,7 @@ export function Wheel({
             </div>
           )}
           {selectedSlice && isAnimating && (
-            <p className="text-sm text-[var(--arcade-ink-dim)]">Guess which slice…</p>
+            <p className="text-sm text-[var(--arcade-ink-dim)]">Guess where it will land…</p>
           )}
           {!selectedSlice && (
             <p className="text-sm text-[var(--arcade-ink-dim)] text-center">

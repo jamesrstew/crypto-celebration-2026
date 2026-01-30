@@ -1,9 +1,10 @@
 /**
  * Launch Roulette – content data
- * Loads from content-v2.json and maps to app format.
+ * Loads from content-v2.json and content-expansion.json; maps to app format.
  */
 
 import v2 from "./content-v2.json";
+import expansion from "./content-expansion.json";
 
 export type MeterKey = "launch_velocity" | "risk_containment" | "team_sanity" | "exec_confidence";
 
@@ -44,7 +45,7 @@ export interface Slice {
   scenarios: Scenario[];
 }
 
-export interface SlideDeckDrop {
+export interface CodeDrop {
   id: string;
   title: string;
   constraint_text: string;
@@ -111,7 +112,7 @@ function mapSlices(v: V2): Slice[] {
   }));
 }
 
-function mapDrops(v: V2): SlideDeckDrop[] {
+function mapDrops(v: V2): CodeDrop[] {
   return (v.slideDeckDrops as V2["slideDeckDrops"]).map((d) => ({
     id: d.id,
     title: d.title,
@@ -131,16 +132,52 @@ function mapCatastrophes(v: V2): Catastrophe[] {
   }));
 }
 
+type ExpansionScenario = {
+  id: string;
+  title: string;
+  subtitle: string;
+  body: string[];
+  question: string;
+  choices: Array<{
+    id: string;
+    label: string;
+    outcome: { headline: string; narrative: string; meterDeltas: MeterDeltas };
+  }>;
+};
+
+function mapExpansionScenarios(exp: { scenarios: ExpansionScenario[] }): Scenario[] {
+  return exp.scenarios.map((sc) => ({
+    id: sc.id,
+    title: sc.title,
+    context: sc.subtitle,
+    prompt: (sc.body.join("\n\n") + "\n\n" + sc.question).trim(),
+    choices: sc.choices.map((c) => ({
+      id: c.id as ChoiceId,
+      label: c.label,
+      outcome: {
+        headline: c.outcome.headline,
+        narrative: c.outcome.narrative,
+        meter_deltas: md(c.outcome.meterDeltas),
+      },
+    })),
+  }));
+}
+
 const SLICES = mapSlices(v2);
-const SLIDE_DECK_DROPS = mapDrops(v2);
+const CODE_DROPS = mapDrops(v2);
 const CATASTROPHES = mapCatastrophes(v2);
+const EXPANSION_SCENARIOS = mapExpansionScenarios(expansion as { scenarios: ExpansionScenario[] });
 
 export function getSlices(): Slice[] {
   return SLICES;
 }
 
-export function getSlideDeckDrops(): SlideDeckDrop[] {
-  return SLIDE_DECK_DROPS;
+export function getExpansionScenarios(): Scenario[] {
+  return EXPANSION_SCENARIOS;
+}
+
+export function getCodeDrops(): CodeDrop[] {
+  return CODE_DROPS;
 }
 
 export function getCatastrophes(): Catastrophe[] {

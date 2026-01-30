@@ -10,14 +10,15 @@ import type {
   Scenario,
   Slice,
   Catastrophe,
-  SlideDeckDrop,
+  CodeDrop,
 } from "@/data/content";
 import {
   getSlices,
+  getExpansionScenarios,
   DEFAULT_METER,
   METER_MIN,
   METER_MAX,
-  getSlideDeckDrops,
+  getCodeDrops,
   getCatastrophes,
 } from "@/data/content";
 
@@ -51,11 +52,12 @@ export interface GameState {
   lockedChoice: ChoiceId | null;
   selectedChoice: ChoiceId | null;
   meters: Meters;
-  slideDeckDropActive: boolean;
+  codeDropActive: boolean;
   dropTriggeredThisRound: boolean;
-  activeDrop: SlideDeckDrop | null;
+  activeDrop: CodeDrop | null;
   catastropheActive: boolean;
   activeCatastrophe: Catastrophe | null;
+  zeroedMeter: MeterKey | null;
   timerSeconds: number;
   outcomeRevealed: boolean;
   hideNextOutcomeDeltas: boolean;
@@ -79,13 +81,12 @@ function addDeltas(meters: Meters, d: MeterDeltas): Meters {
   };
 }
 
-function anyMeterZero(m: Meters): boolean {
-  return (
-    m.launch_velocity === 0 ||
-    m.risk_containment === 0 ||
-    m.team_sanity === 0 ||
-    m.exec_confidence === 0
-  );
+function findZeroedMeter(m: Meters): MeterKey | null {
+  if (m.launch_velocity === 0) return "launch_velocity";
+  if (m.risk_containment === 0) return "risk_containment";
+  if (m.team_sanity === 0) return "team_sanity";
+  if (m.exec_confidence === 0) return "exec_confidence";
+  return null;
 }
 
 function randomInt(min: number, max: number): number {
@@ -124,8 +125,9 @@ function pickRandomSlice(state: GameState): Slice {
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
-function pickScenarioFromSlice(slice: Slice, usedIds: string[]): Scenario | null {
-  const available = slice.scenarios.filter((s) => !usedIds.includes(s.id));
+function pickScenarioForSlice(slice: Slice, usedIds: string[]): Scenario | null {
+  const pool = [...slice.scenarios, ...getExpansionScenarios()];
+  const available = pool.filter((s) => !usedIds.includes(s.id));
   if (available.length === 0) return null;
   return available[Math.floor(Math.random() * available.length)];
 }
@@ -135,8 +137,8 @@ function getNextCatastrophe(index: number): Catastrophe {
   return list[index % list.length];
 }
 
-function pickRandomDrop(): SlideDeckDrop {
-  const list = getSlideDeckDrops();
+function pickRandomDrop(): CodeDrop {
+  const list = getCodeDrops();
   return list[Math.floor(Math.random() * list.length)];
 }
 
@@ -162,11 +164,12 @@ export function initialGameState(): GameState {
     lockedChoice: null,
     selectedChoice: null,
     meters: { ...INITIAL_METERS },
-    slideDeckDropActive: false,
+    codeDropActive: false,
     dropTriggeredThisRound: false,
     activeDrop: null,
     catastropheActive: false,
     activeCatastrophe: null,
+    zeroedMeter: null,
     timerSeconds: 0,
     outcomeRevealed: false,
     hideNextOutcomeDeltas: false,
@@ -208,7 +211,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
     case "REVEAL_SCENARIO": {
       if (state.phase !== "slice_selected" || !state.selectedSlice) return state;
-      const scenario = pickScenarioFromSlice(
+      const scenario = pickScenarioForSlice(
         state.selectedSlice,
         state.usedScenarioIds
       );
@@ -241,7 +244,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
           ...state,
           selectedChoice: action.choiceId,
           phase: "scenario_revealed",
-          slideDeckDropActive: false,
+          codeDropActive: false,
           activeDrop: null,
         };
       }
@@ -252,7 +255,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         return {
           ...state,
           phase: "drop_active",
-          slideDeckDropActive: true,
+          codeDropActive: true,
           activeDrop: pickRandomDrop(),
           dropTriggeredThisRound: true,
           selectedChoice: null,
@@ -273,7 +276,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         ...state,
         phase: nextPhase,
         lockedChoice: action.choiceId,
-        slideDeckDropActive: state.phase === "drop_active" ? false : state.slideDeckDropActive,
+        codeDropActive: state.phase === "drop_active" ? false : state.codeDropActive,
         activeDrop: state.phase === "drop_active" ? null : state.activeDrop,
       };
     }
@@ -289,7 +292,8 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       if (!choice) return state;
       const outcome = choice.outcome;
       const meters = addDeltas(state.meters, outcome.meter_deltas);
-      const catastrophe = anyMeterZero(meters);
+      const zeroedMeter = findZeroedMeter(meters);
+      const catastrophe = zeroedMeter !== null;
       const nextCat = catastrophe
         ? getNextCatastrophe(state.catastropheIndex)
         : null;
@@ -312,8 +316,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         phase: catastrophe ? "catastrophe_check" : "advancing",
         meters: metersAfterCat,
         outcomeRevealed: true,
-        catastropheActive: !!catastrophe,
+        catastropheActive: catastrophe,
         activeCatastrophe: nextCat,
+        zeroedMeter,
         catastropheIndex: catastrophe
           ? state.catastropheIndex + 1
           : state.catastropheIndex,

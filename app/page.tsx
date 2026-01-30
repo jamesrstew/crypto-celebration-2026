@@ -14,8 +14,48 @@ import { GameHeader } from "@/components/GameHeader";
 import { Wheel } from "@/components/Wheel";
 import { ScenarioScene } from "@/components/ScenarioScene";
 import { OutcomeScene } from "@/components/OutcomeScene";
-import { SlideDeckDropOverlay } from "@/components/SlideDeckDropOverlay";
+import { CodeDropOverlay } from "@/components/CodeDropOverlay";
 import { CatastropheCard } from "@/components/CatastropheCard";
+
+const GATE_PASSWORD = "fastfollow";
+const GATE_STORAGE_KEY = "lr_gate";
+
+function PasswordGate({ onUnlock }: { onUnlock: () => void }) {
+  const [value, setValue] = useState("");
+  const [error, setError] = useState("");
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    if (value === GATE_PASSWORD) {
+      if (typeof sessionStorage !== "undefined") sessionStorage.setItem(GATE_STORAGE_KEY, "1");
+      onUnlock();
+    } else {
+      setError("Wrong password");
+    }
+  };
+  return (
+    <main className="h-screen overflow-hidden flex flex-col items-center justify-center p-6 bg-[var(--arcade-bg)]">
+      <div className="arcade-panel max-w-sm w-full p-6 text-center space-y-4">
+        <h1 className="text-xl text-[var(--arcade-ink)]">Enter password</h1>
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <input
+            type="password"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            className="w-full px-4 py-3 rounded-lg border-2 border-[var(--arcade-ink)] bg-[var(--arcade-surface)] text-[var(--arcade-ink)] placeholder-[var(--arcade-ink-dim)] focus:outline-none focus:border-[var(--neon-cyan)]"
+            placeholder="Password"
+            autoFocus
+            autoComplete="off"
+          />
+          {error && <p className="text-sm text-[var(--neon-red)]">{error}</p>}
+          <button type="submit" className="btn-arcade btn-arcade-primary w-full py-3">
+            Continue
+          </button>
+        </form>
+      </div>
+    </main>
+  );
+}
 
 function SplashScreen({
   onStart,
@@ -73,7 +113,7 @@ function SplashScreen({
             <div className="text-left space-y-3 bg-black/20 rounded-xl p-4 sm:p-5 mx-4 sm:mx-6 mb-4 shrink-0">
               <p className="text-sm font-bold text-[var(--arcade-ink)] uppercase">How to play</p>
               <p className="text-xs sm:text-sm text-[var(--arcade-ink-dim)] leading-relaxed">
-                1. Spin the wheel (click it or press Space). Guess which slice it will land on.
+                1. Spin the wheel (click it or press Space). Guess where it will land.
               </p>
               <p className="text-xs sm:text-sm text-[var(--arcade-ink-dim)] leading-relaxed">
                 2. When it stops, a scenario appears. Read it aloud. You have 2 minutes to discuss in breakouts.
@@ -234,12 +274,12 @@ function GameScreen({
 
   const dropPlayedRef = useRef(false);
   useEffect(() => {
-    if (state.slideDeckDropActive && !dropPlayedRef.current) {
+    if (state.codeDropActive && !dropPlayedRef.current) {
       dropPlayedRef.current = true;
       playSfx("slide_drop");
     }
-    if (!state.slideDeckDropActive) dropPlayedRef.current = false;
-  }, [state.slideDeckDropActive, playSfx]);
+    if (!state.codeDropActive) dropPlayedRef.current = false;
+  }, [state.codeDropActive, playSfx]);
 
   const catastrophePlayedRef = useRef(false);
   useEffect(() => {
@@ -297,9 +337,9 @@ function GameScreen({
           </div>
         )}
 
-        {state.slideDeckDropActive && (
+        {state.codeDropActive && (
           <div className="absolute inset-0 z-40 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
-            <SlideDeckDropOverlay
+            <CodeDropOverlay
               drop={state.activeDrop}
               scenario={state.activeScenario}
               onSelectAndSubmit={handleSelectAndSubmit}
@@ -310,6 +350,7 @@ function GameScreen({
           <div className="absolute inset-0 z-40 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
             <CatastropheCard
               catastrophe={state.activeCatastrophe}
+              zeroedMeter={state.zeroedMeter}
               onDismiss={() => dispatch({ type: "DISMISS_CATASTROPHE" })}
             />
           </div>
@@ -320,10 +361,17 @@ function GameScreen({
 }
 
 export default function Home() {
+  const [unlocked, setUnlocked] = useState(false);
   const [state, dispatch] = useReducer(gameReducer, initialGameState());
   const [showInstructions, setShowInstructions] = useState(false);
   const splashBgmStarted = useRef(false);
   const { playSfx, playBgm } = useAudio();
+
+  useEffect(() => {
+    if (typeof sessionStorage !== "undefined" && sessionStorage.getItem(GATE_STORAGE_KEY) === "1") {
+      setUnlocked(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (!isTimerCountingDown(state)) return;
@@ -349,6 +397,10 @@ export default function Home() {
     playSfx("start_press");
     dispatch({ type: "START_GAME" });
   }, [playSfx]);
+
+  if (!unlocked) {
+    return <PasswordGate onUnlock={() => setUnlocked(true)} />;
+  }
 
   if (state.screen === "splash") {
     return (

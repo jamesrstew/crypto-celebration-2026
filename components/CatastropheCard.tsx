@@ -1,15 +1,22 @@
 "use client";
 
-import type { Catastrophe } from "@/data/content";
+import type { Catastrophe, MeterKey } from "@/data/content";
+import { METER_EMOJI, METER_LABELS } from "@/data/content";
 
 export function CatastropheCard({
   catastrophe,
+  zeroedMeter,
   onDismiss,
 }: {
   catastrophe: Catastrophe | null;
+  zeroedMeter: MeterKey | null;
   onDismiss: () => void;
 }) {
   if (!catastrophe) return null;
+
+  const triggerText = zeroedMeter
+    ? `${METER_EMOJI[zeroedMeter]} ${METER_LABELS[zeroedMeter]} hit zero!`
+    : catastrophe.trigger_condition;
 
   return (
     <div
@@ -22,7 +29,7 @@ export function CatastropheCard({
         {catastrophe.title}
       </h2>
       <p className="text-sm text-[var(--arcade-ink-dim)] mb-2">
-        {catastrophe.trigger_condition}
+        {triggerText}
       </p>
       <p className="text-base text-[var(--arcade-ink)] mb-5 leading-relaxed">
         {catastrophe.description}
