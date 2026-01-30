@@ -6,6 +6,7 @@ import { AppAudioWrapper } from "@/components/AppAudioWrapper";
 const pixel = Press_Start_2P({ weight: "400", subsets: ["latin"], variable: "--font-pixel" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://jamesrstew.github.io/crypto-celebration-2026"),
   title: "Launch Roulette",
   description: "A facilitated, shared-screen celebration of the crypto platform launch. Spin the wheel, face scenarios, survive the chaos.",
   applicationName: "Launch Roulette",
@@ -17,11 +18,20 @@ export const metadata: Metadata = {
     description: "A facilitated, shared-screen celebration of the crypto platform launch. Spin the wheel, face scenarios, survive the chaos.",
     type: "website",
     siteName: "Launch Roulette",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Launch Roulette — Spin the wheel, face scenarios, survive the chaos",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Launch Roulette",
     description: "A facilitated, shared-screen celebration of the crypto platform launch.",
+    images: ["/og-image.png"],
   },
   robots: { index: false, follow: false },
 };
