@@ -1,0 +1,257 @@
+{
+  "id": "generic_launch_chaos_expansion",
+  "displayName": "Generic Launch Chaos (Expansion Pack)",
+  "description": "Universally relatable dilemmas. No domain knowledge required. Maximum damage.",
+  "scenarios": [
+    {
+      "id": "metrics_not_moving",
+      "title": "The Metrics Are… Flat",
+      "subtitle": "The dashboard loaded. The line did not go up.",
+      "body": [
+        "Launch is live. The dashboards are refreshing. Nothing is broken.",
+        "Nothing is happening either. Adoption is flat. Conversion is… philosophical.",
+        "Leadership asks the most dangerous question: 'Is this a data delay, or is this reality?'"
+      ],
+      "question": "What do you do?",
+      "timerSeconds": 75,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Assume data lag",
+          "outcome": {
+            "headline": "Hope becomes a strategy.",
+            "narrative": "You declare it's a lag. It might be. The line remains flat long enough to become a personality.",
+            "meterDeltas": { "launch_velocity": 0, "risk_containment": -1, "team_sanity": -1, "exec_confidence": -1 }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Dig into funnels immediately",
+          "outcome": {
+            "headline": "You choose clarity over comfort.",
+            "narrative": "You find friction. Real friction. The kind that explains everything and ruins your afternoon.",
+            "meterDeltas": { "launch_velocity": 0, "risk_containment": 1, "team_sanity": 0, "exec_confidence": 1 }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Push more comms",
+          "outcome": {
+            "headline": "Emails were sent. Hope was outsourced.",
+            "narrative": "You increase messaging. Engagement bumps slightly. Attribution becomes a crime scene.",
+            "meterDeltas": { "launch_velocity": 1, "risk_containment": 0, "team_sanity": 0, "exec_confidence": 0 }
+          }
+        },
+        {
+          "id": "D",
+          "label": "Wait one more day",
+          "outcome": {
+            "headline": "Tomorrow becomes a lifestyle.",
+            "narrative": "You wait. The line still doesn't move. Someone schedules a meeting titled 'Signals vs Noise.'",
+            "meterDeltas": { "launch_velocity": -1, "risk_containment": 0, "team_sanity": -1, "exec_confidence": -1 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "scope_creep_stealth_patch",
+      "title": "The Stealth Scope Creep",
+      "subtitle": "No one asked for it. It appeared anyway.",
+      "body": [
+        "Engineering merged a 'small improvement' late in the cycle.",
+        "It technically improves the product. It also touches three systems no one wanted touched.",
+        "You are discovering this during release review."
+      ],
+      "question": "What do you do?",
+      "timerSeconds": 60,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Revert immediately",
+          "outcome": {
+            "headline": "You chose violence against scope creep.",
+            "narrative": "You revert. The launch stabilizes. The PR description becomes passive aggressive.",
+            "meterDeltas": { "launch_velocity": 0, "risk_containment": 2, "team_sanity": 1, "exec_confidence": 1 }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Let it ride",
+          "outcome": {
+            "headline": "You trusted the merge.",
+            "narrative": "It works. Mostly. You spend the rest of the week waiting for the other shoe.",
+            "meterDeltas": { "launch_velocity": 1, "risk_containment": -1, "team_sanity": -1, "exec_confidence": 0 }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Feature flag it",
+          "outcome": {
+            "headline": "The flag absorbs the blast.",
+            "narrative": "You gate it. Everyone relaxes. The flag is immediately forgotten and lives forever.",
+            "meterDeltas": { "launch_velocity": 1, "risk_containment": 1, "team_sanity": 1, "exec_confidence": 1 }
+          }
+        },
+        {
+          "id": "D",
+          "label": "Delay launch to review",
+          "outcome": {
+            "headline": "You protected correctness.",
+            "narrative": "You delay. The fix is fine. The calendar never forgives you.",
+            "meterDeltas": { "launch_velocity": -2, "risk_containment": 1, "team_sanity": -1, "exec_confidence": -1 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ownership_ambiguity",
+      "title": "Who Owns This?",
+      "subtitle": "Everyone is responsible. Therefore, no one is.",
+      "body": [
+        "A launch-critical issue appears.",
+        "It spans product, platform, and ops. The Jira ticket has seven watchers and zero owners.",
+        "Someone asks: 'Who’s driving this?'"
+      ],
+      "question": "What do you do?",
+      "timerSeconds": 60,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Assign yourself",
+          "outcome": {
+            "headline": "You became the owner.",
+            "narrative": "You step in. Progress happens. So does burnout.",
+            "meterDeltas": { "launch_velocity": 1, "risk_containment": 1, "team_sanity": -1, "exec_confidence": 1 }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Call a sync",
+          "outcome": {
+            "headline": "Alignment achieved. Time lost.",
+            "narrative": "You get clarity. Eventually. After thirty minutes and a shared doc.",
+            "meterDeltas": { "launch_velocity": -1, "risk_containment": 1, "team_sanity": 0, "exec_confidence": 0 }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Let teams self-organize",
+          "outcome": {
+            "headline": "Emergent behavior emerges.",
+            "narrative": "Someone steps up. You are not sure who. It somehow works.",
+            "meterDeltas": { "launch_velocity": 0, "risk_containment": 0, "team_sanity": 0, "exec_confidence": 0 }
+          }
+        },
+        {
+          "id": "D",
+          "label": "Escalate immediately",
+          "outcome": {
+            "headline": "Leadership has been summoned.",
+            "narrative": "Ownership becomes clear. So does the power imbalance.",
+            "meterDeltas": { "launch_velocity": 0, "risk_containment": 1, "team_sanity": -1, "exec_confidence": -1 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "launch_day_hotfix",
+      "title": "Launch Day Hotfix",
+      "subtitle": "Nothing like production to test confidence.",
+      "body": [
+        "An edge-case bug appears on launch day.",
+        "It affects a small percentage of users, but the screenshots look terrifying.",
+        "Engineering has a fix ready. It just needs to go out. Today."
+      ],
+      "question": "What do you do?",
+      "timerSeconds": 75,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Ship the hotfix immediately",
+          "outcome": {
+            "headline": "You rolled the dice and won.",
+            "narrative": "The fix works. The team exhales. You promise never to do that again.",
+            "meterDeltas": { "launch_velocity": 1, "risk_containment": 0, "team_sanity": -1, "exec_confidence": 1 }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Wait for full validation",
+          "outcome": {
+            "headline": "Safety over adrenaline.",
+            "narrative": "You wait. The bug lives longer. So do your stress levels.",
+            "meterDeltas": { "launch_velocity": -1, "risk_containment": 1, "team_sanity": 0, "exec_confidence": 0 }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Disable the feature",
+          "outcome": {
+            "headline": "The kill switch earns its salary.",
+            "narrative": "You shut it off. The product degrades gracefully. Users notice immediately.",
+            "meterDeltas": { "launch_velocity": 0, "risk_containment": 1, "team_sanity": 0, "exec_confidence": 0 }
+          }
+        },
+        {
+          "id": "D",
+          "label": "Monitor and respond",
+          "outcome": {
+            "headline": "You chose vibes again.",
+            "narrative": "You monitor. The bug trends on Slack. Monitoring becomes regret.",
+            "meterDeltas": { "launch_velocity": 0, "risk_containment": -2, "team_sanity": -1, "exec_confidence": -1 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "post_launch_retrospective_too_soon",
+      "title": "Someone Schedules the Retro",
+      "subtitle": "It has not even been 24 hours.",
+      "body": [
+        "A calendar invite appears: 'Launch Retrospective.'",
+        "The subject line includes the word 'learnings.'",
+        "Half the team is still actively fixing things."
+      ],
+      "question": "What do you do?",
+      "timerSeconds": 45,
+      "choices": [
+        {
+          "id": "A",
+          "label": "Attend and engage",
+          "outcome": {
+            "headline": "Reflection before recovery.",
+            "narrative": "You discuss lessons while actively surviving. The insights are… premature.",
+            "meterDeltas": { "launch_velocity": 0, "risk_containment": 0, "team_sanity": -1, "exec_confidence": 0 }
+          }
+        },
+        {
+          "id": "B",
+          "label": "Postpone the retro",
+          "outcome": {
+            "headline": "Timing respected.",
+            "narrative": "You delay reflection until reality stabilizes. Everyone silently thanks you.",
+            "meterDeltas": { "launch_velocity": 0, "risk_containment": 1, "team_sanity": 1, "exec_confidence": 1 }
+          }
+        },
+        {
+          "id": "C",
+          "label": "Convert to async doc",
+          "outcome": {
+            "headline": "Thoughts are captured. Sleep is preserved.",
+            "narrative": "People contribute when able. The doc becomes surprisingly thoughtful.",
+            "meterDeltas": { "launch_velocity": 0, "risk_containment": 1, "team_sanity": 1, "exec_confidence": 0 }
+          }
+        },
+        {
+          "id": "D",
+          "label": "Ignore it",
+          "outcome": {
+            "headline": "Silence sends a message.",
+            "narrative": "The meeting happens without you. Decisions are made anyway.",
+            "meterDeltas": { "launch_velocity": 0, "risk_containment": 0, "team_sanity": 0, "exec_confidence": -1 }
+          }
+        }
+      ]
+    }
+  ]
+}

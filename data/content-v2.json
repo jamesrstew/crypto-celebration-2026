@@ -1,0 +1,833 @@
+{
+  "meta": {
+    "game": "Launch Roulette: Crypto Platform Edition",
+    "tone": "wacky_absurd_self_aware",
+    "notes": [
+      "Host-controlled. Breakout rooms decide verbally, host locks choice.",
+      "Every scenario must read like: 'here’s the mess → here are your constraints → what do you do?'",
+      "Outcomes are deterministic and short; scenarios carry most of the context."
+    ]
+  },
+  "config": {
+    "startingMeters": {
+      "launch_velocity": 5,
+      "risk_containment": 5,
+      "team_sanity": 5,
+      "exec_confidence": 5
+    },
+    "meterMin": 0,
+    "meterMax": 10,
+    "roundTimerSecondsDefault": 90,
+    "useFastFollowTokens": true,
+    "startingFastFollowTokens": 2
+  },
+  "meters": [
+    { "id": "launch_velocity", "label": "🚀 Launch Velocity" },
+    { "id": "risk_containment", "label": "🧯 Risk Containment" },
+    { "id": "team_sanity", "label": "🧠 Team Sanity" },
+    { "id": "exec_confidence", "label": "📈 Exec Confidence" }
+  ],
+  "wheelSlices": [
+    {
+      "id": "market_structure_mayhem",
+      "displayName": "Market Structure Mayhem",
+      "description": "Quotes, spreads, slippage, and the eternal question: 'is this a product or a math paper?'",
+      "scenarios": [
+        {
+          "id": "rfq_vs_clob",
+          "title": "RFQ vs CLOB Cage Match",
+          "subtitle": "Liquidity is ready. Philosophy is not.",
+          "body": [
+            "It is dangerously close to launch. Growth wants 'tight spreads.' Finance wants 'understandable revenue.' Risk wants 'predictability.'",
+            "Engineering says: 'We can ship RFQ now.' The alternative (CLOB) is... a diagram, three meetings, and a dream.",
+            "You also have a new constraint: leadership wants a clean story for why pricing is 'fair' without triggering a 45-minute debate about microstructure."
+          ],
+          "question": "What do you do?",
+          "timerSeconds": 90,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Launch RFQ now",
+              "outcome": {
+                "headline": "Reality achieved.",
+                "narrative": "You ship. Spreads are a little mysterious, but the product exists in the physical universe. Someone still asks 'when CLOB?' within 4 minutes.",
+                "meterDeltas": { "launch_velocity": 2, "risk_containment": 0, "team_sanity": 1, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "B",
+              "label": "Delay for CLOB",
+              "outcome": {
+                "headline": "Purity acquired. Launch not included.",
+                "narrative": "You achieve the cleanest architecture in a PowerPoint deck. The launch date becomes 'a vibe' and morale becomes 'a concept.'",
+                "meterDeltas": { "launch_velocity": -2, "risk_containment": 1, "team_sanity": -1, "exec_confidence": -2 }
+              }
+            },
+            {
+              "id": "C",
+              "label": "RFQ now + roadmap CLOB",
+              "outcome": {
+                "headline": "Everyone hears what they want.",
+                "narrative": "You ship RFQ and promise CLOB. The roadmap now includes: CLOB, and 17 follow-ups to define what CLOB means.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 0, "team_sanity": 0, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "D",
+              "label": "Hybrid approach",
+              "outcome": {
+                "headline": "You invented a third option: chaos.",
+                "narrative": "You try to blend RFQ and CLOB. Engineering ships something that works, but only under a full moon and a Jira ritual.",
+                "meterDeltas": { "launch_velocity": -1, "risk_containment": -1, "team_sanity": -1, "exec_confidence": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "id": "slippage_data_summoning",
+          "title": "Slippage Data Summoning Ritual",
+          "subtitle": "Finance needs a number. Talos has 'feelings'.",
+          "body": [
+            "Finance asks the simplest question that has ever destroyed a roadmap: 'How much slippage should we expect?'",
+            "Talos can provide historical slippage data, but it's in a place described only as: 'a portal'.",
+            "You need an answer for launch readiness, but you also need to not commit to a number you'll regret on a slide."
+          ],
+          "question": "What do you do?",
+          "timerSeconds": 75,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Ship without it, reconcile later",
+              "outcome": {
+                "headline": "Spreadsheet emotions unlocked.",
+                "narrative": "You ship. Finance builds a model from vibes. The model becomes a living being and asks for PTO.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": -1, "team_sanity": -1, "exec_confidence": 0 }
+              }
+            },
+            {
+              "id": "B",
+              "label": "Delay until data arrives",
+              "outcome": {
+                "headline": "Data obtained. Momentum sacrificed.",
+                "narrative": "You wait for clean data. It arrives. So does a calendar invite titled 'Slippage Governance Working Group'.",
+                "meterDeltas": { "launch_velocity": -1, "risk_containment": 1, "team_sanity": 0, "exec_confidence": -1 }
+              }
+            },
+            {
+              "id": "C",
+              "label": "Use conservative assumptions + disclose",
+              "outcome": {
+                "headline": "Adult compromise detected.",
+                "narrative": "You pick safe assumptions and clearly disclose. Everyone is mildly unhappy, which means it worked.",
+                "meterDeltas": { "launch_velocity": 0, "risk_containment": 1, "team_sanity": 1, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "D",
+              "label": "Make a 'flexibility' slider",
+              "outcome": {
+                "headline": "You built a knob. The knob will be used.",
+                "narrative": "You introduce a range. Stakeholders immediately choose the most optimistic end and tattoo it onto a deck.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": -2, "team_sanity": 0, "exec_confidence": -1 }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "funding_limits_fever_dream",
+      "displayName": "Funding & Limits Fever Dream",
+      "description": "The product wants to move money. Risk wants to move slowly.",
+      "scenarios": [
+        {
+          "id": "instant_funding_temptation",
+          "title": "Instant Funding: The Forbidden Fruit",
+          "subtitle": "Growth wants fireworks. Risk wants a seatbelt factory.",
+          "body": [
+            "Growth: 'If funding isn't instant, people bounce.' Risk: 'If funding is instant, fraud arrives early and brings friends.'",
+            "Engineering can support instant funding—but only if limits + step-up rules are crisp and consistent across surfaces.",
+            "You must decide what launches now vs what becomes 'phase two' (a.k.a. the shadow realm)."
+          ],
+          "question": "What do you do?",
+          "timerSeconds": 90,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Instant funding for everyone",
+              "outcome": {
+                "headline": "Signups spike. So does chaos.",
+                "narrative": "You open the gates. The funnel looks amazing. Fraud also discovers electricity and starts speedrunning your controls.",
+                "meterDeltas": { "launch_velocity": 2, "risk_containment": -2, "team_sanity": -1, "exec_confidence": 0 }
+              }
+            },
+            {
+              "id": "B",
+              "label": "No instant funding",
+              "outcome": {
+                "headline": "Safe, coherent, slightly sleepy.",
+                "narrative": "The product is safe. The funnel is... contemplative. Someone asks if we're 'anti-growth on purpose.'",
+                "meterDeltas": { "launch_velocity": -1, "risk_containment": 2, "team_sanity": 1, "exec_confidence": -1 }
+              }
+            },
+            {
+              "id": "C",
+              "label": "Instant funding with tight limits + step-up",
+              "outcome": {
+                "headline": "You ship, but the flow gains two new religions.",
+                "narrative": "You land a balanced policy. The experience now includes step-up logic that feels like a moral exam.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 1, "team_sanity": -1, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "D",
+              "label": "Employee-only instant funding",
+              "outcome": {
+                "headline": "Internal beta becomes a demolition derby.",
+                "narrative": "You validate quickly with a smaller blast radius. Employees immediately find the weirdest edge cases on earth.",
+                "meterDeltas": { "launch_velocity": 0, "risk_containment": 1, "team_sanity": 0, "exec_confidence": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "id": "rounding_strategy_wars",
+          "title": "Rounding Strategy Wars",
+          "subtitle": "Decimals are where trust goes to die.",
+          "body": [
+            "You need minimums and rounding rules for trading that don't feel like a magic trick.",
+            "If you round too aggressively, users feel cheated. If you show full precision, the UX looks like a spaceship console.",
+            "Support is already drafting macros for 'where did my cents go?'"
+          ],
+          "question": "What do you do?",
+          "timerSeconds": 75,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Round for simplicity",
+              "outcome": {
+                "headline": "Simple UX. Complex feelings.",
+                "narrative": "The UI is clean. Support tickets are not. Every ticket includes the phrase: 'it's not about the money, it's about the principle.'",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": -1, "team_sanity": -1, "exec_confidence": 0 }
+              }
+            },
+            {
+              "id": "B",
+              "label": "Exact precision everywhere",
+              "outcome": {
+                "headline": "Accuracy achieved. Readability lost.",
+                "narrative": "You are technically correct (the best kind). Users now need a calculator to feel joy.",
+                "meterDeltas": { "launch_velocity": 0, "risk_containment": 1, "team_sanity": -1, "exec_confidence": 0 }
+              }
+            },
+            {
+              "id": "C",
+              "label": "Smart defaults + advanced toggle",
+              "outcome": {
+                "headline": "Two doors. Everyone stops yelling.",
+                "narrative": "Default is simple, advanced is precise. Both camps feel respected and move on to their next argument.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 1, "team_sanity": 1, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "D",
+              "label": "Fast follow it",
+              "outcome": {
+                "headline": "Congrats, you invented dust.",
+                "narrative": "You ship without clarity. Microscopic leftovers accumulate until someone has $0.04 in five places and rage awakens.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": -1, "team_sanity": 0, "exec_confidence": -1 }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "asset_scope_chaos",
+      "displayName": "Asset Scope Chaos",
+      "description": "What’s in MVP? What’s on the roadmap? What’s in the void?",
+      "scenarios": [
+        {
+          "id": "usdc_only_minimalism",
+          "title": "USDC-Only MVP",
+          "subtitle": "The calmest product you’ll ever ship. The loudest questions you’ll ever get.",
+          "body": [
+            "To reduce complexity, the launch plan is: member launch supports USDC as the stablecoin anchor.",
+            "This makes policies, limits, and flows much simpler—especially while buy/sell/hold stabilizes.",
+            "But marketing wants to say 'crypto platform' without everyone replying: 'so… one coin?'"
+          ],
+          "question": "What do you do?",
+          "timerSeconds": 75,
+          "choices": [
+            {
+              "id": "A",
+              "label": "USDC-only MVP",
+              "outcome": {
+                "headline": "Coherent product. Mild internet disappointment.",
+                "narrative": "You ship something stable and safe. Twitter asks if the other coins are 'in beta spiritually.'",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 2, "team_sanity": 1, "exec_confidence": 0 }
+              }
+            },
+            {
+              "id": "B",
+              "label": "Add more assets now",
+              "outcome": {
+                "headline": "More coins, more meetings.",
+                "narrative": "You expand scope. The backlog becomes sentient. It requests a manager.",
+                "meterDeltas": { "launch_velocity": -1, "risk_containment": -1, "team_sanity": -2, "exec_confidence": 0 }
+              }
+            },
+            {
+              "id": "C",
+              "label": "USDC-only + strong messaging",
+              "outcome": {
+                "headline": "Ship reality, sell vision.",
+                "narrative": "You frame USDC as the foundation. Stakeholders accept it because the narrative is crisp and oddly soothing.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 1, "team_sanity": 1, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "D",
+              "label": "Employee launch with more assets first",
+              "outcome": {
+                "headline": "Employees become the canary mine.",
+                "narrative": "You test asset sprawl internally. You learn a lot. Mostly about how creative employees are with money movement.",
+                "meterDeltas": { "launch_velocity": 0, "risk_containment": 0, "team_sanity": -1, "exec_confidence": 1 }
+              }
+            }
+          ]
+        },
+        {
+          "id": "trending_popular_not_ready",
+          "title": "Trending Coins: The Illusion of Taste",
+          "subtitle": "The backend isn't ready, but the homepage wants confidence.",
+          "body": [
+            "Your L1 wants a 'Trending' section because empty space looks like fear.",
+            "Backend isn't done. The honest option is 'no trending yet.' The shady option is 'hardcode a list and pray.'",
+            "Design asks: 'Can we at least make it look intentional?'"
+          ],
+          "question": "What do you do?",
+          "timerSeconds": 60,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Hardcode 3–5 coins",
+              "outcome": {
+                "headline": "Curated. Incorrect. Confident.",
+                "narrative": "You ship a list. The list trends toward being wrong. Someone asks why the product is 'shilling.'",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": -1, "team_sanity": 0, "exec_confidence": 0 }
+              }
+            },
+            {
+              "id": "B",
+              "label": "Cut trending from MVP",
+              "outcome": {
+                "headline": "Minimal UI, maximal honesty.",
+                "narrative": "You ship without trending. The product looks clean. Marketing quietly starts a doc titled 'Discovery Gap.'",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 1, "team_sanity": 1, "exec_confidence": -1 }
+              }
+            },
+            {
+              "id": "C",
+              "label": "Use a temporary data feed",
+              "outcome": {
+                "headline": "Vendor-powered confidence.",
+                "narrative": "You integrate a feed. It works great until the feed hiccups during a demo and everyone learns humility.",
+                "meterDeltas": { "launch_velocity": 0, "risk_containment": 0, "team_sanity": -1, "exec_confidence": 0 }
+              }
+            },
+            {
+              "id": "D",
+              "label": "Delay launch for trending",
+              "outcome": {
+                "headline": "You died on the hill of 'Popular.'",
+                "narrative": "You delay to ship trending. The feature is nice. The calendar is furious.",
+                "meterDeltas": { "launch_velocity": -2, "risk_containment": 1, "team_sanity": 0, "exec_confidence": -1 }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "search_discovery_spiral",
+      "displayName": "Search & Discovery Spiral",
+      "description": "Without search, everything is just vibes and scrolling.",
+      "scenarios": [
+        {
+          "id": "search_is_late_but_vibes_early",
+          "title": "Search Is Late, But Vibes Are Early",
+          "subtitle": "Discovery is hard when users can’t find anything.",
+          "body": [
+            "Search is slipping on mobile and web. Without it, the crypto catalog feels like a warehouse with the lights off.",
+            "You can launch with curated lists and navigation hacks, but it's not the same as real discovery.",
+            "Stakeholders are split: 'Ship!' vs 'If users can't find coins, what's the point?'"
+          ],
+          "question": "What do you do?",
+          "timerSeconds": 90,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Ship without search",
+              "outcome": {
+                "headline": "You shipped. Users wandered.",
+                "narrative": "The product launches. People scroll. A lot. Session time goes up for all the wrong reasons.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 0, "team_sanity": 0, "exec_confidence": -1 }
+              }
+            },
+            {
+              "id": "B",
+              "label": "Delay until search ships",
+              "outcome": {
+                "headline": "Discovery saved. Momentum wounded.",
+                "narrative": "You delay and ship real search. The product is stronger. The launch story now includes a sentence that begins: 'Due to...' ",
+                "meterDeltas": { "launch_velocity": -1, "risk_containment": 0, "team_sanity": -1, "exec_confidence": -1 }
+              }
+            },
+            {
+              "id": "C",
+              "label": "Curated lists + top assets only",
+              "outcome": {
+                "headline": "Boutique crypto shop era.",
+                "narrative": "You ship curated discovery. It feels intentional. You quietly become a product editor for one sprint.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 1, "team_sanity": 1, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "D",
+              "label": "Search web-only for MVP",
+              "outcome": {
+                "headline": "Mobile users notice. Loudly.",
+                "narrative": "Web looks great. Mobile feels like a different product. Someone says 'parity' three times and the room chills.",
+                "meterDeltas": { "launch_velocity": 0, "risk_containment": 0, "team_sanity": 0, "exec_confidence": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "id": "tearsheet_vs_history",
+          "title": "Tearsheet Beautiful, History Missing",
+          "subtitle": "Gorgeous charts. Fewer receipts.",
+          "body": [
+            "Tearsheets are ready and they look incredible. Transaction history / activity is behind because of prioritization and complexity.",
+            "Without history, some users will ask: 'Did my trade happen, or did I hallucinate it?'",
+            "You need to pick what the MVP feels like: a polished showroom, or a transparent ledger."
+          ],
+          "question": "What do you do?",
+          "timerSeconds": 75,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Launch with tearsheets only",
+              "outcome": {
+                "headline": "Showroom unlocked.",
+                "narrative": "It looks premium. Users love the visuals. Support starts hearing: 'Where do I see what I did?'",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 0, "team_sanity": 0, "exec_confidence": 0 }
+              }
+            },
+            {
+              "id": "B",
+              "label": "Delay for transaction history",
+              "outcome": {
+                "headline": "Trust won. Time lost.",
+                "narrative": "You delay and ship transparency. It's the right call. Everyone quietly mourns the original timeline.",
+                "meterDeltas": { "launch_velocity": -1, "risk_containment": 1, "team_sanity": -1, "exec_confidence": -1 }
+              }
+            },
+            {
+              "id": "C",
+              "label": "Minimal 'recent activity' only",
+              "outcome": {
+                "headline": "Just enough receipts to survive.",
+                "narrative": "You ship a small activity view. It prevents chaos. Everyone agrees never to speak of the missing features again (for now).",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 1, "team_sanity": 1, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "D",
+              "label": "Add 'coming soon' everywhere",
+              "outcome": {
+                "headline": "The banner becomes the product.",
+                "narrative": "You ship with disclaimers. Users read them as: 'not finished.' Stakeholders read them as: 'not a problem.'",
+                "meterDeltas": { "launch_velocity": 0, "risk_containment": -1, "team_sanity": 0, "exec_confidence": -1 }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "consent_signing_shenanigans",
+      "displayName": "Consent & Signing Shenanigans",
+      "description": "Legal clarity vs user friction: pick your poison.",
+      "scenarios": [
+        {
+          "id": "agree_button_of_destiny",
+          "title": "The Agree Button of Destiny",
+          "subtitle": "Do you ship trust, or ship paperwork?",
+          "body": [
+            "You need crypto document generation + signing. A full DocuSign-like flow adds weeks and feels like closing on a house.",
+            "Legal is open to an 'Agree' button, but only if the copy is precise and auditability is solid.",
+            "The product must be compliant, but also not an obstacle course that makes users quit out of spite."
+          ],
+          "question": "What do you do?",
+          "timerSeconds": 90,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Ship Agree button MVP",
+              "outcome": {
+                "headline": "Compliance squints… and nods.",
+                "narrative": "You ship the Agree flow. Audit trail is clean. Someone says 'we'll harden it later' and everyone pretends that's real.",
+                "meterDeltas": { "launch_velocity": 2, "risk_containment": 0, "team_sanity": 1, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "B",
+              "label": "Build full DocuSign experience",
+              "outcome": {
+                "headline": "Legally immaculate. UX spiritually harmed.",
+                "narrative": "You ship a fortress. Users feel like they’re adopting a dragon. Drop-off improves your risk metrics accidentally.",
+                "meterDeltas": { "launch_velocity": -2, "risk_containment": 2, "team_sanity": -1, "exec_confidence": 0 }
+              }
+            },
+            {
+              "id": "C",
+              "label": "Agree button + emailed receipt",
+              "outcome": {
+                "headline": "The adult compromise returns.",
+                "narrative": "You ship with lightweight consent and a strong record. Everyone is mildly satisfied, which is how you know it's correct.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 1, "team_sanity": 1, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "D",
+              "label": "Defer signing requirement",
+              "outcome": {
+                "headline": "You invented a regulatory horror story.",
+                "narrative": "You ship without proper consent. Legal appears like a wizard and turns your roadmap into a cautionary tale.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": -3, "team_sanity": 0, "exec_confidence": -2 }
+              }
+            }
+          ]
+        },
+        {
+          "id": "copy_approval_gauntlet",
+          "title": "Copy Approval Gauntlet",
+          "subtitle": "The word 'guarantee' just got banned mid-sentence.",
+          "body": [
+            "UX copy is in review. Compliance wants precision. Marketing wants excitement. Product wants it to be understandable by humans.",
+            "You have 48 hours. Stakeholders keep suggesting micro-edits that add 3 new legal implications each.",
+            "The only constant is: someone will find one more word they hate."
+          ],
+          "question": "What do you do?",
+          "timerSeconds": 60,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Freeze copy now",
+              "outcome": {
+                "headline": "Words locked. Feelings unlocked.",
+                "narrative": "You freeze copy and move on. It's safe. Half the room is annoyed, which means you avoided 37 more edits.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 1, "team_sanity": 0, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "B",
+              "label": "Iterate until perfect",
+              "outcome": {
+                "headline": "Perfection achieved. Time disappeared.",
+                "narrative": "Copy becomes beautiful. Launch becomes theoretical. Everyone gains a new respect for words and a new hatred for time.",
+                "meterDeltas": { "launch_velocity": -1, "risk_containment": 1, "team_sanity": -1, "exec_confidence": -1 }
+              }
+            },
+            {
+              "id": "C",
+              "label": "Use approved templates",
+              "outcome": {
+                "headline": "Bland. Safe. Efficient.",
+                "narrative": "You use standard language. It's not exciting, but it's bulletproof. Users are slightly bored; regulators are delighted.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 2, "team_sanity": 1, "exec_confidence": 0 }
+              }
+            },
+            {
+              "id": "D",
+              "label": "Let PM write it at 11:58pm",
+              "outcome": {
+                "headline": "Hero moment. Minor typo. Eternal shame.",
+                "narrative": "You ship copy. It passes review. Later someone notices a comma that changes the meaning of life.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": -1, "team_sanity": -1, "exec_confidence": 0 }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "security_review_boss_level",
+      "displayName": "Security Review Boss Level",
+      "description": "You want alpha access. Security wants a time machine and a checklist.",
+      "scenarios": [
+        {
+          "id": "expose_gateway_extweb",
+          "title": "Expose Gateway on extWeb",
+          "subtitle": "To test externally, you must summon Security.",
+          "body": [
+            "You need alpha testers to access the crypto product on external web surfaces.",
+            "Security review is required. The review queue is real. The deadline is also real. These realities are in conflict.",
+            "Engineering can do a tight allowlist and minimal exposure, but only if everyone agrees 'temporary' doesn't mean 'forever.'"
+          ],
+          "question": "What do you do?",
+          "timerSeconds": 90,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Full security review before access",
+              "outcome": {
+                "headline": "Slow. Safe. Weirdly satisfying.",
+                "narrative": "You do it properly. It takes time. You sleep better. The timeline sends you passive-aggressive DMs.",
+                "meterDeltas": { "launch_velocity": -1, "risk_containment": 2, "team_sanity": 0, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "B",
+              "label": "Limited exposure + allowlist",
+              "outcome": {
+                "headline": "You ship alpha with guardrails.",
+                "narrative": "You keep the blast radius small and learn fast. Security is not thrilled, but they respect the boundaries.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 1, "team_sanity": 1, "exec_confidence": 0 }
+              }
+            },
+            {
+              "id": "C",
+              "label": "Temporary bypass",
+              "outcome": {
+                "headline": "Temporary becomes a lifestyle.",
+                "narrative": "You bypass the process. It works. Then you spend the next month paying 'temporary debt' with 'temporary tears.'",
+                "meterDeltas": { "launch_velocity": 2, "risk_containment": -2, "team_sanity": -1, "exec_confidence": -1 }
+              }
+            },
+            {
+              "id": "D",
+              "label": "Delay alpha, test internal only",
+              "outcome": {
+                "headline": "Internal testing intensifies.",
+                "narrative": "You test internally and avoid exposure risk. Employees become expert testers and occasional chaos agents.",
+                "meterDeltas": { "launch_velocity": 0, "risk_containment": 1, "team_sanity": -1, "exec_confidence": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "id": "pen_test_finds_something",
+          "title": "Pen Test Finds… Something",
+          "subtitle": "Medium severity issue, unclear exploitability.",
+          "body": [
+            "A pen test reveals a medium severity issue. The report says: 'unclear exploitability.' Which is consultant for: 'good luck sleeping.'",
+            "Engineering can fix it with a clean patch, but it risks destabilizing other parts of the launch build.",
+            "Leadership asks: 'Are we safe?' Security asks: 'Define safe.'"
+          ],
+          "question": "What do you do?",
+          "timerSeconds": 90,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Fix before proceeding",
+              "outcome": {
+                "headline": "You chose correctness over speed.",
+                "narrative": "You fix it now. Launch slows. Your future self sends a thank-you note via time travel.",
+                "meterDeltas": { "launch_velocity": -1, "risk_containment": 2, "team_sanity": -1, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "B",
+              "label": "Mitigate + document",
+              "outcome": {
+                "headline": "A grown-up compromise (again).",
+                "narrative": "You mitigate the risk and document clearly. Everyone is slightly uneasy, which is the correct amount of uneasy.",
+                "meterDeltas": { "launch_velocity": 0, "risk_containment": 1, "team_sanity": 0, "exec_confidence": 0 }
+              }
+            },
+            {
+              "id": "C",
+              "label": "Accept risk to hit date",
+              "outcome": {
+                "headline": "Speedrun mode activated.",
+                "narrative": "You accept risk and hit the date. The launch deck looks great. Security develops a new eye twitch.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": -2, "team_sanity": -1, "exec_confidence": -1 }
+              }
+            },
+            {
+              "id": "D",
+              "label": "Scope cut behind flag",
+              "outcome": {
+                "headline": "The feature lives… quietly.",
+                "narrative": "You gate the risky surface behind a flag. You ship the core. The flag becomes your emotional support blanket.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 1, "team_sanity": 1, "exec_confidence": 1 }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "generic_tech_company_chaos_pack",
+      "displayName": "Every Tech Company Ever",
+      "description": "Universal pain. Maximum relatability. Minimal dignity.",
+      "scenarios": [
+        {
+          "id": "drive_by_stakeholder",
+          "title": "The Drive-By Stakeholder",
+          "subtitle": "They were quiet for 8 weeks. Now they have thoughts.",
+          "body": [
+            "A senior stakeholder appears 36 hours before launch. They start with: 'Quick question.' This is never quick.",
+            "They request a 'small' change that is actually three product decisions and a new integration.",
+            "You have one goal: protect launch without starting a political war."
+          ],
+          "question": "What do you do?",
+          "timerSeconds": 60,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Add it",
+              "outcome": {
+                "headline": "You added it. You also added consequences.",
+                "narrative": "You accept the change. The build survives. The team does not. A new meeting series is born.",
+                "meterDeltas": { "launch_velocity": -1, "risk_containment": -1, "team_sanity": -2, "exec_confidence": 0 }
+              }
+            },
+            {
+              "id": "B",
+              "label": "Say no",
+              "outcome": {
+                "headline": "Scope defended. Politics awakened.",
+                "narrative": "You protect launch. The stakeholder respects you publicly and plots privately. Classic.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 1, "team_sanity": 1, "exec_confidence": -1 }
+              }
+            },
+            {
+              "id": "C",
+              "label": "Use a Fast Follow token",
+              "outcome": {
+                "headline": "Token deployed like a tranquilizer dart.",
+                "narrative": "You promise it later. The stakeholder feels heard. Future-you feels haunted.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": 0, "team_sanity": 0, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "D",
+              "label": "Compromise scope",
+              "outcome": {
+                "headline": "Cardboard-feature shipped.",
+                "narrative": "You ship a thin version. It technically exists. It also technically disappoints everyone equally.",
+                "meterDeltas": { "launch_velocity": 0, "risk_containment": 0, "team_sanity": 0, "exec_confidence": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "id": "incident_during_beta",
+          "title": "Prod Incident During Employee Beta",
+          "subtitle": "The dashboard is red. The calendar is also red.",
+          "body": [
+            "During employee beta, alerts fire. Something is wrong. The only thing you know for sure is: it picked the worst possible time.",
+            "Half the room says rollback. Half says hotfix. One person says 'let’s just monitor it' and everyone stares.",
+            "You need to choose a path that keeps the launch moving without creating a future crime scene."
+          ],
+          "question": "What do you do?",
+          "timerSeconds": 75,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Rollback",
+              "outcome": {
+                "headline": "Correct, boring, heroic.",
+                "narrative": "You rollback. Things stabilize. The team exhales. Someone says 'we should have done this sooner' and is correct.",
+                "meterDeltas": { "launch_velocity": -1, "risk_containment": 2, "team_sanity": 1, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "B",
+              "label": "Hotfix forward",
+              "outcome": {
+                "headline": "Hero mode, high variance.",
+                "narrative": "You hotfix. It works. Everyone feels powerful and slightly terrified of themselves.",
+                "meterDeltas": { "launch_velocity": 1, "risk_containment": -1, "team_sanity": -1, "exec_confidence": 1 }
+              }
+            },
+            {
+              "id": "C",
+              "label": "Disable with feature flag",
+              "outcome": {
+                "headline": "The flag saves you.",
+                "narrative": "You gate the problematic path. The day is saved by a boolean. The boolean becomes sacred.",
+                "meterDeltas": { "launch_velocity": 0, "risk_containment": 1, "team_sanity": 0, "exec_confidence": 0 }
+              }
+            },
+            {
+              "id": "D",
+              "label": "Monitor it",
+              "outcome": {
+                "headline": "You chose vibes. Vibes chose violence.",
+                "narrative": "You monitor. The incident escalates. The postmortem begins writing itself in the background of everyone's mind.",
+                "meterDeltas": { "launch_velocity": 0, "risk_containment": -2, "team_sanity": -1, "exec_confidence": -1 }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "slideDeckDrops": [
+    {
+      "id": "ban_the_word_guarantee",
+      "title": "Slide Deck Drop: Vocabulary Ban",
+      "constraintText": "Legal just banned the word “guarantee.” Also “promise.” Also “sure.” Please communicate with interpretive dance.",
+      "effectInstruction": "Re-vote the same scenario in 30 seconds. Host locks a new choice."
+    },
+    {
+      "id": "exec_wants_tldr_10_words",
+      "title": "Executive Walk-In",
+      "constraintText": "An exec joined late and asks for the TL;DR. Your rationale must be 10 words or fewer.",
+      "effectInstruction": "Re-vote in 30 seconds. If the host decides the rationale was too long, apply -1 exec_confidence."
+    },
+    {
+      "id": "brand_hates_day_trading_vibes",
+      "title": "Brand Intervention",
+      "constraintText": "Brand says: ‘This feels like a day-trading app.’ Make it calmer without adding scope.",
+      "effectInstruction": "Re-vote in 30 seconds with this new constraint."
+    }
+  ],
+  "catastrophes": [
+    {
+      "id": "emergency_all_hands",
+      "title": "Catastrophe: Emergency All-Hands",
+      "triggerCondition": "Any meter reaches 0",
+      "description": "An emergency all-hands appears on everyone’s calendar… for right now.",
+      "effect": {
+        "type": "rule",
+        "ruleText": "Next round timer is reduced to 45 seconds."
+      }
+    },
+    {
+      "id": "compliance_red_flag_flood",
+      "title": "Catastrophe: Red Flag Flood",
+      "triggerCondition": "risk_containment reaches 0",
+      "description": "Compliance enters the chat. They brought 14 follow-up questions and a spreadsheet.",
+      "effect": {
+        "type": "restriction",
+        "ruleText": "Next round must be from 'Security Review Boss Level' or 'Consent & Signing Shenanigans' slices."
+      }
+    },
+    {
+      "id": "team_sanity_melts",
+      "title": "Catastrophe: Team Sanity Meltdown",
+      "triggerCondition": "team_sanity reaches 0",
+      "description": "The team has achieved a new state of being: 'operationally present, spiritually absent.'",
+      "effect": {
+        "type": "rule",
+        "ruleText": "Fast Follow tokens are disabled for the remainder of the game."
+      }
+    }
+  ]
+}

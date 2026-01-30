@@ -2,20 +2,217 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+   8-BIT ARCADE DESIGN SYSTEM — bright, unhinged, wacky
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  /* Base */
+  --arcade-bg: #1a0a2e;
+  --arcade-bg-alt: #2d1b4e;
+  --arcade-surface: #3d2a5c;
+  --arcade-ink: #fef9e7;
+  --arcade-ink-dim: #c4b5d8;
+
+  /* Neon palette */
+  --neon-pink: #ff2d95;
+  --neon-blue: #00d4ff;
+  --neon-lime: #b8ff3c;
+  --neon-yellow: #ffe135;
+  --neon-orange: #ff9f43;
+  --neon-purple: #b24bf3;
+  --neon-red: #ff4757;
+  --neon-cyan: #54a0ff;
+
+  /* Semantic */
+  --accent: var(--neon-yellow);
+  --accent-alt: var(--neon-pink);
+  --success: var(--neon-lime);
+  --danger: var(--neon-red);
+  --info: var(--neon-blue);
+  --muted: var(--arcade-ink-dim);
+
+  /* Legacy compat */
+  --background: var(--arcade-bg);
+  --foreground: var(--arcade-ink);
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--arcade-ink);
+  background: var(--arcade-bg);
+  font-family: var(--font-pixel), "Courier New", monospace;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Subtle gradient overlay for depth */
+.arcade-bg {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(178, 75, 243, 0.25), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(0, 212, 255, 0.15), transparent),
+    radial-gradient(ellipse 60% 40% at 0% 100%, rgba(255, 45, 149, 0.15), transparent),
+    var(--arcade-bg);
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 16px rgba(255, 225, 53, 0.25);
+}
+
+/* ═══ Arcade panel (chunky bordered container) ═══ */
+.arcade-panel {
+  background: var(--arcade-surface);
+  border: 4px solid var(--neon-pink);
+  border-radius: 8px;
+  box-shadow:
+    inset 0 0 0 2px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(255, 45, 149, 0.3),
+    4px 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+.arcade-panel-alt {
+  border-color: var(--neon-blue);
+  box-shadow:
+    inset 0 0 0 2px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(0, 212, 255, 0.25),
+    4px 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+.arcade-panel-success {
+  border-color: var(--neon-lime);
+  box-shadow:
+    inset 0 0 0 2px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(184, 255, 60, 0.25),
+    4px 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* ═══ Buttons ═══ */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+  filter: brightness(1.15);
+  transform: translateY(-2px);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(2px);
+}
+
+button:active:not(:disabled).btn-arcade-primary {
+  box-shadow: 2px 2px 0 var(--neon-orange);
+}
+
+button:active:not(:disabled).btn-arcade-secondary,
+button:active:not(:disabled).btn-arcade-danger {
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+}
+
+.btn-arcade {
+  border: 4px solid var(--arcade-ink);
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.btn-arcade-primary {
+  background: var(--neon-yellow);
+  color: var(--arcade-bg);
+  border-color: var(--neon-orange);
+  box-shadow: 5px 5px 0 var(--neon-orange);
+}
+
+.btn-arcade-secondary {
+  background: var(--arcade-surface);
+  color: var(--neon-cyan);
+  border-color: var(--neon-cyan);
+}
+
+.btn-arcade-danger {
+  background: var(--neon-red);
+  color: var(--arcade-ink);
+  border-color: #c0392b;
+}
+
+/* ═══ Animations ═══ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.6); }
+  60% { transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { filter: drop-shadow(0 0 8px currentColor); }
+  50% { filter: drop-shadow(0 0 20px currentColor); }
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-2deg); }
+  75% { transform: rotate(2deg); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.animate-bounce-in {
+  animation: bounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-wobble {
+  animation: wobble 0.4s ease-in-out;
+}
+
+/* Game scenes */
+@keyframes sceneIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes choicesIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.scene-enter {
+  animation: sceneIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.choices-enter {
+  opacity: 0;
+  animation: choicesIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Pixel-style section titles */
+.arcade-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--neon-pink);
+  margin-bottom: 0.75rem;
+  text-shadow: 0 0 12px rgba(255, 45, 149, 0.5);
 }
