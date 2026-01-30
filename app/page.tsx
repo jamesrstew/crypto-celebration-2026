@@ -119,10 +119,10 @@ function SplashScreen({
                 2. When it stops, a scenario appears. Read it aloud. You have 2 minutes to discuss in breakouts.
               </p>
               <p className="text-xs sm:text-sm text-[var(--arcade-ink-dim)] leading-relaxed">
-                3. Click a choice (A–D), then Submit. The outcome is revealed and the four health bars update.
+                3. Click a choice (A, B, C, or D), then Submit. The outcome is revealed and the four health bars update.
               </p>
               <p className="text-xs sm:text-sm text-[var(--arcade-ink-dim)] leading-relaxed">
-                4. Hit &quot;Next round&quot; and spin again. Sometimes a &quot;Slide deck drop&quot; forces you to re‑pick (you&apos;ll see).
+                4. Hit &quot;Next round&quot; and spin again. Sometimes a &quot;Code Review Drop&quot; forces you to re‑pick (you&apos;ll see).
               </p>
               <p className="text-xs sm:text-sm text-[var(--arcade-ink-dim)] leading-relaxed">
                 5. Play 8–10 rounds, then End game to see final results.
