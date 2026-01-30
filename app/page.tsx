@@ -16,6 +16,7 @@ import { ScenarioScene } from "@/components/ScenarioScene";
 import { OutcomeScene } from "@/components/OutcomeScene";
 import { CodeDropOverlay } from "@/components/CodeDropOverlay";
 import { CatastropheCard } from "@/components/CatastropheCard";
+import { InstructionsPane } from "@/components/InstructionsPane";
 
 const GATE_PASSWORD = "fastfollow";
 const GATE_STORAGE_KEY = "lr_gate";
@@ -110,32 +111,8 @@ function SplashScreen({
               </button>
             </div>
           ) : (
-            <div className="text-left space-y-3 bg-black/20 rounded-xl p-4 sm:p-5 mx-4 sm:mx-6 mb-4 shrink-0">
-              <p className="text-sm font-bold text-[var(--arcade-ink)] uppercase">How to play</p>
-              <p className="text-xs sm:text-sm text-[var(--arcade-ink-dim)] leading-relaxed">
-                1. Spin the wheel (click it or press Space). Guess where it will land.
-              </p>
-              <p className="text-xs sm:text-sm text-[var(--arcade-ink-dim)] leading-relaxed">
-                2. When it stops, a scenario appears. Read it aloud. You have 2 minutes to discuss in breakouts.
-              </p>
-              <p className="text-xs sm:text-sm text-[var(--arcade-ink-dim)] leading-relaxed">
-                3. Click a choice (A, B, C, or D), then Submit. The outcome is revealed and the four health bars update.
-              </p>
-              <p className="text-xs sm:text-sm text-[var(--arcade-ink-dim)] leading-relaxed">
-                4. Hit &quot;Next round&quot; and spin again. Sometimes a &quot;Code Review Drop&quot; forces you to re‑pick (you&apos;ll see).
-              </p>
-              <p className="text-xs sm:text-sm text-[var(--arcade-ink-dim)] leading-relaxed">
-                5. Play 8–10 rounds, then End game to see final results.
-              </p>
-              <p className="text-sm font-bold text-[var(--arcade-ink)] uppercase mt-3">The four health bars</p>
-              <p className="text-xs sm:text-sm text-[var(--arcade-ink-dim)]">{METER_EMOJI.launch_velocity} Launch Velocity — pace of shipping</p>
-              <p className="text-xs sm:text-sm text-[var(--arcade-ink-dim)]">{METER_EMOJI.risk_containment} Risk Containment — keeping things safe</p>
-              <p className="text-xs sm:text-sm text-[var(--arcade-ink-dim)]">{METER_EMOJI.team_sanity} Team Sanity — how held‑together the team is</p>
-              <p className="text-xs sm:text-sm text-[var(--arcade-ink-dim)]">{METER_EMOJI.exec_confidence} Exec Confidence — leadership nerves</p>
-              <p className="text-sm font-bold text-[var(--arcade-ink)] uppercase mt-3">Goal</p>
-              <p className="text-xs sm:text-sm text-[var(--arcade-ink-dim)] leading-relaxed">
-                Don’t let any bar hit zero. If one does, a &quot;Catastrophe&quot; hits and things get weird. There’s no single winner—you’re trying to survive the launch together and see how you did at the end.
-              </p>
+            <div className="bg-black/20 rounded-xl p-4 sm:p-5 mx-4 sm:mx-6 mb-4 shrink-0">
+              <InstructionsPane />
               <div className="flex flex-wrap gap-3 pt-4">
                 <button
                   type="button"
@@ -299,9 +276,15 @@ function GameScreen({
     if (!outcomePhase) outcomePlayedRef.current = false;
   }, [outcomePhase, state.outcomeRevealed, playSfx]);
 
+  const [showInstructionsOverlay, setShowInstructionsOverlay] = useState(false);
+
   return (
     <div className="h-screen overflow-hidden flex flex-col text-[var(--arcade-ink)]">
-      <GameHeader state={state} onEndGame={() => dispatch({ type: "END_GAME" })} />
+      <GameHeader
+        state={state}
+        onEndGame={() => dispatch({ type: "END_GAME" })}
+        onInstructionsClick={() => setShowInstructionsOverlay(true)}
+      />
       <main className="flex-1 flex flex-col min-h-0 overflow-hidden relative px-4 sm:px-6 pb-4">
         {wheelPhase && (
           <div className="flex flex-col items-center justify-center flex-1 min-h-0 overflow-hidden py-4">
@@ -353,6 +336,22 @@ function GameScreen({
               zeroedMeter={state.zeroedMeter}
               onDismiss={() => dispatch({ type: "DISMISS_CATASTROPHE" })}
             />
+          </div>
+        )}
+        {showInstructionsOverlay && (
+          <div className="absolute inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
+            <div className="arcade-panel max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 animate-bounce-in">
+              <InstructionsPane />
+              <div className="pt-4">
+                <button
+                  type="button"
+                  onClick={() => setShowInstructionsOverlay(false)}
+                  className="btn-arcade btn-arcade-primary text-sm px-8 py-3"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </main>

@@ -20,9 +20,11 @@ const COLORS: Record<MeterKey, string> = {
 export function GameHeader({
   state,
   onEndGame,
+  onInstructionsClick,
 }: {
   state: GameState;
   onEndGame: () => void;
+  onInstructionsClick?: () => void;
 }) {
   const { muted, toggleMuted, playSfx } = useAudio();
   const m = state.meters;
@@ -67,17 +69,30 @@ export function GameHeader({
         </span>
       </div>
       <div className="flex items-center justify-center gap-3 shrink-0">
+        {onInstructionsClick && (
+          <>
+            <button
+              type="button"
+              onClick={onInstructionsClick}
+              className="px-3 py-1.5 rounded border-2 border-[var(--neon-cyan)] text-[var(--neon-cyan)] text-xs uppercase tracking-wider hover:bg-[var(--neon-cyan)]/10 transition-colors"
+            >
+              Instructions
+            </button>
+            <span className="text-[var(--arcade-ink-dim)]/40 text-sm" aria-hidden>|</span>
+          </>
+        )}
         <button
           type="button"
           onClick={onEndGame}
-          className="text-sm text-[var(--arcade-ink-dim)] hover:text-[var(--neon-cyan)] transition-colors uppercase tracking-wider"
+          className="px-3 py-1.5 rounded border-2 border-[var(--neon-cyan)] text-[var(--neon-cyan)] text-xs uppercase tracking-wider hover:bg-[var(--neon-cyan)]/10 transition-colors"
         >
           End game
         </button>
+        <span className="text-[var(--arcade-ink-dim)]/40 text-sm" aria-hidden>|</span>
         <button
           type="button"
           onClick={handleMuteClick}
-          className="flex items-center justify-center w-10 h-10 rounded border border-[var(--arcade-ink-dim)]/50 bg-black/20 hover:border-[var(--arcade-ink-dim)] hover:bg-black/30 transition-colors opacity-80 hover:opacity-100"
+          className="flex items-center justify-center w-10 h-10 rounded border-2 border-[var(--neon-cyan)] text-[var(--neon-cyan)] hover:bg-[var(--neon-cyan)]/10 transition-colors"
           aria-label={muted ? "Unmute" : "Mute"}
           title={muted ? "Unmute" : "Mute"}
         >
