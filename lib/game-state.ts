@@ -22,7 +22,7 @@ import {
   getCatastrophes,
 } from "@/data/content";
 
-export type Screen = "splash" | "game" | "end";
+export type Screen = "splash" | "game" | "end" | "credits";
 
 export type Phase =
   | "idle"
@@ -113,7 +113,8 @@ export type GameAction =
   | { type: "DISMISS_CATASTROPHE" }
   | { type: "ADVANCE_ROUND" }
   | { type: "RESET_GAME" }
-  | { type: "END_GAME" };
+  | { type: "END_GAME" }
+  | { type: "VIEW_CREDITS" };
 
 function pickRandomSlice(state: GameState): Slice {
   const slices = getSlices();
@@ -366,6 +367,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
     case "END_GAME":
       return { ...state, screen: "end" };
+
+    case "VIEW_CREDITS":
+      return state.screen === "end" ? { ...state, screen: "credits" } : state;
 
     default:
       return state;

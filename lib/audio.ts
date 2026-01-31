@@ -9,6 +9,7 @@ const G = `${BASE}/General Sounds`;
 export const BGM = {
   splash: `${BASE}/start-screen.wav`,
   game: `${BASE}/gameplay-screen.wav`,
+  credits: `${BASE}/credits.wav`,
 } as const;
 
 export const SFX = {

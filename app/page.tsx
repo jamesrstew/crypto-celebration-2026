@@ -17,6 +17,7 @@ import { OutcomeScene } from "@/components/OutcomeScene";
 import { CodeDropOverlay } from "@/components/CodeDropOverlay";
 import { CatastropheCard } from "@/components/CatastropheCard";
 import { InstructionsPane } from "@/components/InstructionsPane";
+import CreditsScene from "@/components/CreditsScene";
 
 const GATE_PASSWORD = "fastfollow";
 const GATE_STORAGE_KEY = "lr_gate";
@@ -139,10 +140,10 @@ function SplashScreen({
 
 function EndScreen({
   meters,
-  onReset,
+  onViewCredits,
 }: {
   meters: GameState["meters"];
-  onReset: () => void;
+  onViewCredits: () => void;
 }) {
   const meterKeys: MeterKey[] = [
     "launch_velocity",
@@ -180,8 +181,8 @@ function EndScreen({
               </div>
             ))}
           </div>
-          <button type="button" onClick={onReset} className="btn-arcade btn-arcade-primary text-sm px-8 py-3 mt-4">
-            Reset Game
+          <button type="button" onClick={onViewCredits} className="btn-arcade btn-arcade-primary text-sm px-8 py-3 mt-4">
+            View Credits
           </button>
         </div>
       </div>
@@ -364,7 +365,7 @@ export default function Home() {
   const [state, dispatch] = useReducer(gameReducer, initialGameState());
   const [showInstructions, setShowInstructions] = useState(false);
   const splashBgmStarted = useRef(false);
-  const { playSfx, playBgm } = useAudio();
+  const { playSfx, playBgm, stopBgm } = useAudio();
 
   useEffect(() => {
     if (typeof sessionStorage !== "undefined" && sessionStorage.getItem(GATE_STORAGE_KEY) === "1") {
@@ -380,11 +381,14 @@ export default function Home() {
 
   useEffect(() => {
     if (state.screen === "splash") {
+      stopBgm();
       splashBgmStarted.current = false;
+    } else if (state.screen === "credits") {
+      // CreditsScene plays credits BGM on mount
     } else {
       playBgm("game");
     }
-  }, [state.screen, playBgm]);
+  }, [state.screen, playBgm, stopBgm]);
 
   const handleSplashFirstInteraction = useCallback(() => {
     if (splashBgmStarted.current) return;
@@ -416,9 +420,13 @@ export default function Home() {
     return (
       <EndScreen
         meters={state.meters}
-        onReset={() => dispatch({ type: "RESET_GAME" })}
+        onViewCredits={() => dispatch({ type: "VIEW_CREDITS" })}
       />
     );
+  }
+
+  if (state.screen === "credits") {
+    return <CreditsScene onEndGame={() => dispatch({ type: "RESET_GAME" })} />;
   }
 
   return <GameScreen state={state} dispatch={dispatch} />;
