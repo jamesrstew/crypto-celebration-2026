@@ -1,7 +1,7 @@
 "use client";
 
 import { METER_EMOJI, METER_LABELS, METER_MAX, type MeterKey } from "@/data/content";
-import { useAudio } from "@/components/AudioProvider";
+import { MuteToggle } from "@/components/MuteToggle";
 import type { GameState } from "@/lib/game-state";
 
 const KEYS: MeterKey[] = [
@@ -26,14 +26,7 @@ export function GameHeader({
   onEndGame: () => void;
   onInstructionsClick?: () => void;
 }) {
-  const { muted, toggleMuted, playSfx } = useAudio();
   const m = state.meters;
-
-  const handleMuteClick = () => {
-    const wasMuted = muted;
-    toggleMuted();
-    if (wasMuted) playSfx("mute_toggle");
-  };
 
   return (
     <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-3 px-4 sm:px-6 bg-black/30 border-b border-[var(--arcade-ink-dim)]/30 shrink-0">
@@ -89,17 +82,7 @@ export function GameHeader({
           End game
         </button>
         <span className="text-[var(--arcade-ink-dim)]/40 text-sm" aria-hidden>|</span>
-        <button
-          type="button"
-          onClick={handleMuteClick}
-          className="flex items-center justify-center w-10 h-10 rounded border-2 border-[var(--neon-cyan)] text-[var(--neon-cyan)] hover:bg-[var(--neon-cyan)]/10 transition-colors"
-          aria-label={muted ? "Unmute" : "Mute"}
-          title={muted ? "Unmute" : "Mute"}
-        >
-          <span className="text-lg" aria-hidden>
-            {muted ? "🔇" : "🔊"}
-          </span>
-        </button>
+        <MuteToggle />
       </div>
     </header>
   );

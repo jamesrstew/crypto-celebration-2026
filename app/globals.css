@@ -207,6 +207,37 @@ button:disabled {
   animation: choicesIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
+/* Volume slider (music only) */
+.volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: var(--arcade-surface);
+  border: 2px solid var(--arcade-ink-dim);
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+}
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--neon-cyan);
+  border: 2px solid var(--arcade-ink);
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(84, 160, 255, 0.5);
+}
+.volume-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--neon-cyan);
+  border: 2px solid var(--arcade-ink);
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(84, 160, 255, 0.5);
+}
+
 /* Pixel-style section titles */
 .arcade-title {
   font-size: 0.85rem;

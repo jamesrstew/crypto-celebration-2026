@@ -14,6 +14,8 @@ type AudioContextValue = {
   muted: boolean;
   setMuted: (value: boolean) => void;
   toggleMuted: () => void;
+  bgmVolume: number;
+  setBgmVolume: (value: number) => void;
   playSfx: (id: SfxId) => void;
   playBgm: (key: keyof typeof audio.BGM) => void;
   stopBgm: () => void;
@@ -21,18 +23,33 @@ type AudioContextValue = {
 
 const AudioContext = createContext<AudioContextValue | null>(null);
 
-const STORAGE_KEY = "launch-roulette-muted";
+const STORAGE_KEY_MUTED = "launch-roulette-muted";
+const STORAGE_KEY_BGM_VOLUME = "launch-roulette-bgm-volume";
+const DEFAULT_BGM_VOLUME = 0.5;
 
 export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [muted, setMutedState] = useState(false);
+  const [bgmVolume, setBgmVolumeState] = useState(DEFAULT_BGM_VOLUME);
 
   useEffect(() => {
     try {
-      const s = localStorage.getItem(STORAGE_KEY);
+      const s = localStorage.getItem(STORAGE_KEY_MUTED);
       if (s != null) {
         const v = s === "true";
         setMutedState(v);
         audio.setMuted(v);
+      }
+      const v = localStorage.getItem(STORAGE_KEY_BGM_VOLUME);
+      if (v != null) {
+        const n = parseFloat(v);
+        if (!Number.isNaN(n) && n >= 0 && n <= 1) {
+          setBgmVolumeState(n);
+          audio.setBgmVolume(n);
+        } else {
+          audio.setBgmVolume(DEFAULT_BGM_VOLUME);
+        }
+      } else {
+        audio.setBgmVolume(DEFAULT_BGM_VOLUME);
       }
     } catch {
       /* ignore */
@@ -43,7 +60,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     setMutedState(value);
     audio.setMuted(value);
     try {
-      localStorage.setItem(STORAGE_KEY, String(value));
+      localStorage.setItem(STORAGE_KEY_MUTED, String(value));
     } catch {
       /* ignore */
     }
@@ -52,6 +69,17 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const toggleMuted = useCallback(() => {
     setMuted(!muted);
   }, [muted, setMuted]);
+
+  const setBgmVolume = useCallback((value: number) => {
+    const v = Math.max(0, Math.min(1, value));
+    setBgmVolumeState(v);
+    audio.setBgmVolume(v);
+    try {
+      localStorage.setItem(STORAGE_KEY_BGM_VOLUME, String(v));
+    } catch {
+      /* ignore */
+    }
+  }, []);
 
   const playSfx = useCallback((id: SfxId) => {
     audio.playSfx(id);
@@ -69,6 +97,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     muted,
     setMuted,
     toggleMuted,
+    bgmVolume,
+    setBgmVolume,
     playSfx,
     playBgm,
     stopBgm,

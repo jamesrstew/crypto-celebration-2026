@@ -72,11 +72,23 @@ export function playSfx(id: SfxId): void {
 
 let bgmEl: HTMLAudioElement | null = null;
 let currentBgmPath: string | null = null;
+let bgmVolume = 0.5;
+
+export function getBgmVolume(): number {
+  return bgmVolume;
+}
+
+export function setBgmVolume(value: number): void {
+  bgmVolume = Math.max(0, Math.min(1, value));
+  const el = bgmEl;
+  if (!el) return;
+  el.volume = mute ? 0 : bgmVolume;
+}
 
 function getBgm(): HTMLAudioElement {
   if (!bgmEl) {
     bgmEl = new Audio();
-    bgmEl.volume = 0.35;
+    bgmEl.volume = mute ? 0 : bgmVolume;
     bgmEl.loop = true;
   }
   return bgmEl;
@@ -87,11 +99,13 @@ export function playBgm(path: string): void {
   const u = url(path);
   if (currentBgmPath === path && !el.paused) {
     el.muted = mute;
+    el.volume = mute ? 0 : bgmVolume;
     return;
   }
   currentBgmPath = path;
   el.src = u;
   el.muted = mute;
+  el.volume = mute ? 0 : bgmVolume;
   el.play().catch(() => {});
 }
 
@@ -108,4 +122,5 @@ export function setBgmMuted(muted: boolean): void {
   const el = bgmEl;
   if (!el) return;
   el.muted = muted;
+  el.volume = muted ? 0 : bgmVolume;
 }
